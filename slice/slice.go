@@ -35,6 +35,28 @@ func (s Slice[T]) Filter(predicate func(T) bool) Slice[T] {
 	return Filter(s, predicate)
 }
 
+// Range executes predicate with each element of slice until false returned.
+func (s Slice[T]) Range(predicate func(T) bool) Slice[T] {
+	for _, value := range s {
+		if !predicate(value) {
+			break
+		}
+	}
+
+	return s
+}
+
+// RangeReverse executes predicate with each element of slice in reverse order until false returned.
+func (s Slice[T]) RangeReverse(predicate func(T) bool) Slice[T] {
+	for i := len(s) - 1; i >= 0; i-- {
+		if !predicate(s[i]) {
+			break
+		}
+	}
+
+	return s
+}
+
 func WrapSlice[T any](slice []T) Slice[T] {
 	return Slice[T](slice)
 }
