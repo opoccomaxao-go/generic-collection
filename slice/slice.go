@@ -6,6 +6,7 @@ func (s Slice[T]) Slice() []T {
 	return s[:]
 }
 
+//nolint:nonamedreturns // shortest possible
 func (Slice[T]) Zero() (_ T) {
 	return
 }
@@ -21,8 +22,7 @@ func (s *Slice[T]) Push(item T) {
 func (s *Slice[T]) Pop() T {
 	var res T
 
-	last := len(*s) - 1
-	if last >= 0 {
+	if last := len(*s) - 1; last >= 0 {
 		res = (*s)[last]
 		(*s)[last] = s.Zero()
 		*s = (*s)[:last]
@@ -33,6 +33,17 @@ func (s *Slice[T]) Pop() T {
 
 func (s Slice[T]) Filter(predicate func(T) bool) Slice[T] {
 	return Filter(s, predicate)
+}
+
+func (s Slice[T]) Join(separator string, stringer func(T) string) string {
+	return Join(s, separator, stringer)
+}
+
+// ForEach - chainable ForEach call.
+func (s Slice[T]) ForEach(callbackFn func(T)) Slice[T] {
+	ForEach(s, callbackFn)
+
+	return s
 }
 
 // Range executes predicate with each element of slice until false returned.
