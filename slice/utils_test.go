@@ -86,3 +86,75 @@ func TestFirstNonEmpty(t *testing.T) {
 
 	assert.Equal(t, "1", FirstNonEmpty("", "", "1"))
 }
+
+func TestChunk(t *testing.T) {
+	slice := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+
+	testCases := []struct {
+		size   int
+		output [][]int
+	}{
+		{
+			size: 10,
+			output: [][]int{
+				{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+			},
+		},
+		{
+			size: 5,
+			output: [][]int{
+				{1, 2, 3, 4, 5},
+				{6, 7, 8, 9, 10},
+			},
+		},
+		{
+			size: 4,
+			output: [][]int{
+				{1, 2, 3, 4},
+				{5, 6, 7, 8},
+				{9, 10},
+			},
+		},
+		{
+			size: 3,
+			output: [][]int{
+				{1, 2, 3},
+				{4, 5, 6},
+				{7, 8, 9},
+				{10},
+			},
+		},
+		{
+			size: 2,
+			output: [][]int{
+				{1, 2},
+				{3, 4},
+				{5, 6},
+				{7, 8},
+				{9, 10},
+			},
+		},
+		{
+			size: 1,
+			output: [][]int{
+				{1},
+				{2},
+				{3},
+				{4},
+				{5},
+				{6},
+				{7},
+				{8},
+				{9},
+				{10},
+			},
+		},
+	}
+
+	for _, tC := range testCases {
+		t.Run(strconv.Itoa(tC.size), func(t *testing.T) {
+			output := Chunk(slice, tC.size)
+			assert.Equal(t, tC.output, output)
+		})
+	}
+}

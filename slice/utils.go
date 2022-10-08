@@ -145,3 +145,20 @@ func Nullify[T any](slice []T) []T {
 
 	return slice[0:0]
 }
+
+// Chunk split slice into chunks of size chunkSize.
+func Chunk[T any](slice []T, chunkSize int) [][]T {
+	total := len(slice)
+	res := make([][]T, 0, total/chunkSize+1)
+
+	for start := 0; start < total; start += chunkSize {
+		end := start + chunkSize
+		if end > total {
+			end = total
+		}
+
+		res = append(res, slice[start:end])
+	}
+
+	return res
+}

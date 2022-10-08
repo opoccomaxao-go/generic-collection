@@ -68,6 +68,10 @@ func (s Slice[T]) RangeReverse(predicate func(T) bool) Slice[T] {
 	return s
 }
 
+func (s Slice[T]) Chunk(size int) [][]T {
+	return Chunk(s, size)
+}
+
 func WrapSlice[T any](slice []T) Slice[T] {
 	return Slice[T](slice)
 }
