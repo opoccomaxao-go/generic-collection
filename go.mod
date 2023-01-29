@@ -3,7 +3,8 @@ module github.com/opoccomaxao-go/generic-collection
 go 1.18
 
 require (
-	github.com/stretchr/testify v1.8.0
+	github.com/stretchr/testify v1.8.1
+	golang.org/x/exp v0.0.0-20230127193734-31bee513bff7
 )
 
 require (
