@@ -3,8 +3,10 @@ package slice
 import (
 	"strings"
 
+	"github.com/opoccomaxao-go/generic-collection/gmath"
 	"github.com/opoccomaxao-go/generic-collection/set"
 	"github.com/opoccomaxao-go/generic-collection/slice/filter"
+	"github.com/opoccomaxao-go/generic-collection/slice/mapper"
 )
 
 // Map creates a new array populated with the results of calling
@@ -158,6 +160,19 @@ func Chunk[T any](slice []T, chunkSize int) [][]T {
 		}
 
 		res = append(res, slice[start:end])
+	}
+
+	return res
+}
+
+// Concat - is used to merge two or more slices.
+// This method does not change the existing slices, but instead returns a new slice.
+func Concat[T any](slices ...[]T) []T {
+	totalLen := gmath.Sum(Map(slices, mapper.Len[T])...)
+	res := make([]T, 0, totalLen)
+
+	for _, slice := range slices {
+		res = append(res, slice...)
 	}
 
 	return res
