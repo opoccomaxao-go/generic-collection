@@ -12,3 +12,7 @@ require (
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
+
+retract (
+	v0.0.0 // Module abandoned. Use github.com/samber/lo instead.
+)
